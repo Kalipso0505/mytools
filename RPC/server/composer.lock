@@ -1,0 +1,111 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+    ],
+    "hash": "5e1423dc373917b6679fdb47d45eca19",
+    "packages": [
+        {
+            "name": "simplon/border",
+            "version": "0.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fightbulc/simplon_border.git",
+                "reference": "0.5.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fightbulc/simplon_border/zipball/0.5.1",
+                "reference": "0.5.1",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Simplon\\Border\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tino Ehrich",
+                    "email": "opensource@efides.com",
+                    "role": "developer"
+                }
+            ],
+            "description": "Request and Response handler incl. JSON-RPC",
+            "homepage": "https://github.com/fightbulc/simplon_border",
+            "keywords": [
+                "json-rpc",
+                "request",
+                "response"
+            ],
+            "time": "2013-03-07 15:18:51"
+        },
+        {
+            "name": "simplon/jr",
+            "version": "0.5.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fightbulc/simplon_jr.git",
+                "reference": "0.5.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fightbulc/simplon_jr/zipball/0.5.2",
+                "reference": "0.5.2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4",
+                "simplon/border": "0.5.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Simplon\\Jr\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tino Ehrich",
+                    "email": "opensource@efides.com",
+                    "role": "developer"
+                }
+            ],
+            "description": "JSON-RPC Server",
+            "homepage": "https://github.com/fightbulc/simplon_jr",
+            "keywords": [
+                "json-rpc"
+            ],
+            "time": "2013-03-07 15:22:40"
+        }
+    ],
+    "packages-dev": [
+
+    ],
+    "aliases": [
+
+    ],
+    "minimum-stability": "stable",
+    "stability-flags": [
+
+    ],
+    "platform": [
+
+    ],
+    "platform-dev": [
+
+    ]
+}

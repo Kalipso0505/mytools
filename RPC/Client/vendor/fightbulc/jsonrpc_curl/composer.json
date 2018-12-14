@@ -1,0 +1,27 @@
+{
+    "name": "fightbulc/jsonrpc_curl",
+    "description": "JSON-RPC CURL",
+    "homepage": "https://github.com/fightbulc/jsonrpc_curl",
+    "version": "0.5.4",
+    "type": "library",
+    "keywords": ["json-rpc client"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tino Ehrich",
+            "email": "opensource@efides.com",
+            "role": "developer"
+        }
+    ],
+
+    "minimum-stability": "dev",
+
+    "require": {
+        "php": ">=5.3.3",
+        "fightbulc/php_curl": "1.0.0"
+    },
+
+    "autoload": {
+        "classmap": ["src/"]
+    }
+}

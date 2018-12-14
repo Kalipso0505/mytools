@@ -1,0 +1,5 @@
+Options +FollowSymLinks
+RewriteEngine On
+RewriteLog /var/log/httpd/rewrite.log
+RewriteBase /miniprojects/htaccess_test/
+RewriteRule ^.*folder1.*$ http://ownscripts.dev/miniprojects/htaccess_test/folder2 [R=301,L]

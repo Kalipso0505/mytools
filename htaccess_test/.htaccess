@@ -1,0 +1,7 @@
+Options -MultiViews
+
+RewriteEngine On
+RewriteBase /miniprojects/htaccess_test
+RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteRule ^ index.html [QSA,L]
+RewriteRule ^/(.*)$ 	/index.html?rt=$1 [L,QSA]

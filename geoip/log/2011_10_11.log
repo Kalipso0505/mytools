@@ -1,0 +1,50 @@
+09:19:51: *** Created Class ***
+09:19:51: downloaded file
+09:19:52: finished download file GeoIPCountryCSV.zip
+09:19:53: successfully unziped csv-data
+09:19:53: -> found GeoIPCountryWhois.csv at position 0 in zipfile
+09:19:54: found 152535 lines in csv
+09:19:54: start inserting data into database
+09:20:00: end inserting data into database
+09:20:00: end of import
+09:22:18: *** Created Class ***
+09:22:18: downloaded file
+09:22:19: finished download file GeoIPCountryCSV.zip
+09:22:19: successfully unziped csv-data
+09:22:19: -> found GeoIPCountryWhois.csv at position 0 in zipfile
+09:22:21: found 152535 lines in csv
+09:22:21: start inserting data into database
+09:22:26: end inserting data into database
+09:22:26: end of import
+09:25:48: *** Created Class ***
+09:25:48: downloaded file
+09:25:49: finished download file GeoIPCountryCSV.zip
+09:25:49: successfully unziped csv-data
+09:25:49: -> found GeoIPCountryWhois.csv at position 0 in zipfile
+09:25:52: found 152535 lines in csv
+09:25:52: end of import
+09:27:25: *** Created Class ***
+09:27:25: downloaded file
+09:27:26: finished download file GeoIPCountryCSV.zip
+09:27:26: successfully unziped csv-data
+09:27:26: -> found GeoIPCountryWhois.csv at position 0 in zipfile
+09:27:28: found 152535 lines in csv
+09:27:28: start inserting data into database
+09:27:33: end inserting data into database
+09:27:33: end of import
+09:28:21: *** Created Class ***
+09:28:21: downloaded file
+09:28:22: finished download file GeoIPCountryCSV.zip
+09:28:22: successfully unziped csv-data
+09:28:22: -> found GeoIPCountryWhois.csv at position 0 in zipfile
+09:28:25: found 152535 lines in csv
+09:28:25: end of import
+09:30:22: *** Created Class ***
+09:30:22: downloaded file
+09:30:24: finished download file GeoIPCountryCSV.zip
+09:30:24: successfully unziped csv-data
+09:30:24: -> found GeoIPCountryWhois.csv at position 0 in zipfile
+09:30:26: found 152535 lines in csv
+09:30:26: start inserting data into database
+09:30:31: end inserting data into database
+09:30:31: end of import

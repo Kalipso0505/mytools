@@ -1,0 +1,5 @@
+{
+    "require": {
+        "fightbulc/jsonrpc_curl": "0.5.*"
+    }
+}

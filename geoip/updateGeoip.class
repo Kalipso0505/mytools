@@ -1,0 +1,175 @@
+<?php
+/**
+ * This script downloads a csv-based geoip Database and stores it in a mysql table ws_geoips 
+ *
+ * @author alexander.achim
+ */
+class updateGeoip {
+	const TMP_PATH = 'tmp/';
+	const LOG_PATH = 'log/';
+	const INI_PATH = 'config/';
+	
+	const DELETE_SQL = "DROP TABLE IF EXISTS `geoips`;";
+	const CREATE_SQL = "CREATE TABLE IF NOT EXISTS `geoips` ( 
+  `ipAddressStart` varchar(16) NOT NULL,
+  `ipAddressEnd` varchar(16) NOT NULL,
+  `ipNumberStart` BIGINT(20) NOT NULL COMMENT 'can be calculated to ip-Address with INET_NTOA()',
+  `ipNumberEnd` BIGINT(20) NOT NULL COMMENT 'can be calculated to ip-Address with INET_NTOA()',
+  `CountryCode` varchar(2) NOT NULL COMMENT 'ISO 3166',
+  `CountryName` text NOT NULL,
+  UNIQUE KEY `ipAddressStart` (`ipAddressStart`,`ipAddressEnd`,`ipNumberStart`,`ipNumberEnd`,`CountryCode`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;";
+	const INSERT_SQL = "INSERT INTO `geoips` (`ipAddressStart`, `ipAddressEnd`, `ipNumberStart`, `ipNumberEnd` , `CountryCode`,  `CountryName`) VALUES ";
+
+	private $dbInstance;	// mysql resource
+	private $zipPath = '';	// path where geoipdatabase is downloaded to and unzipt
+	private $sqls = array();	// because hugh inserts have to be splitted up, this array contains all the sqls genereated by csvparsing of the geoipdatabase
+	private $logfile = '';	// contains fopen-resource of the logfile
+	private $remoteGeoipLink = '';	// set by config; target geoipdatabase to download
+	
+	public function __construct() {
+		$config = parse_ini_file(self::INI_PATH.'updateGeoip.ini');
+		$this->remoteGeoipLink = $config['downloadpath'];
+
+		$this->logfile = fopen(self::LOG_PATH.DIRECTORY_SEPARATOR.date('Y_m_d').'.log', 'a+');
+		$this->fileLog('*** Created Class ***');
+		
+		$this->createDBInstance();
+		
+		// insert first querys to clear DB
+		$this->sqls[] = self::DELETE_SQL;
+		$this->sqls[] = self::CREATE_SQL;
+
+	}
+	
+	public function __destruct() {
+		if($this->dbInstance){
+			mysql_close($this->dbInstance);
+		}
+		$this->fileLog('end of import');
+		fclose($this->logfile);
+	}
+	
+	/**
+	 * downloads the given file to the temporary path
+	 */
+	public function download() {
+		$this->fileLog('downloaded file');
+		$info = pathinfo($this->remoteGeoipLink);
+		$geoIpCSV = file_get_contents($this->remoteGeoipLink);
+		if(strlen($geoIpCSV)==0){
+			die ("Error downloading File\n");
+		}
+		if(!file_exists(self::TMP_PATH)){
+			mkdir(self::TMP_PATH);
+		}
+		$this->zipPath = self::TMP_PATH.$info['basename'];
+		file_put_contents($this->zipPath, $geoIpCSV);		
+		$this->fileLog('finished download file '.$info['basename']);
+	}
+
+	/**
+	 * extracts database
+	 */
+	public function unzip() {
+		$zip = new ZipArchive;
+		if ($zip->open($this->zipPath) !== TRUE) {
+			$msg = 'failed to open zipfile at '.$this->zipPath;
+			$this->fileLog($msg);
+			die($msg."\n");
+		} else {
+			$zip->extractTo(self::TMP_PATH);
+			$info = $zip->statIndex(0);
+			$this->csvName = basename( $info['name'] );
+			$zip->close();
+			$this->fileLog('successfully unziped csv-data');
+			$this->fileLog('-> found '.$info['name'].' at position 0 in zipfile');
+		}
+	}
+
+	/**
+	 * parses the downloaded geoipdatabsae and generates sqls from csv
+	 */
+	public function parseCSV() {
+		$csv = fopen(self::TMP_PATH.$this->csvName, 'r');
+		$sSql = self::INSERT_SQL;
+		$cnt = 0;
+		
+		while (($line = fgets($csv)) !== FALSE) {
+			if ($cnt < 80) {
+				$sSql .= '('.trim($line)."),";
+			} else {
+				$cnt = 0;
+				$sSql = rtrim($sSql, ',');
+				$sSql .= '; ';
+				$this->sqls[] = $sSql;
+				$sSql = self::INSERT_SQL.'('.trim($line)."), ";
+			}
+			++$cnt;
+			++$overall;
+		}
+		$sSql = rtrim($sSql, ',');
+		$sSql .= '; ';
+		$this->sqls[] = $sSql;		
+		echo '<pre>'.print_r($this->sqls, 1).'</pre>';
+		fclose($csv);
+		$this->fileLog('found '.$overall.' lines in csv');
+	}
+
+	/**
+	 * executes the sqls stored in $this->sqls
+	 */
+	public function updateDatabase() {
+		$this->fileLog('start inserting data into database');
+		foreach ($this->sqls as $sSql) {
+			$this->myQuery($sSql);
+		}
+		$this->fileLog('end inserting data into database');
+	}
+
+	/**
+	 * creates databasesingelton; configuration is loaded from database.ini
+	 */
+	private function createDBInstance() {
+		if(file_exists(self::INI_PATH).'database.ini'){
+			$config = parse_ini_file(self::INI_PATH.'database.ini');
+		} else {
+			die('databaseconfiguration not found in '.self::DB_INI_PATH."\n");
+		}
+		$this->dbInstance = mysql_pconnect($config['host'], $config['user'], $config['password']);
+		if(!$this->dbInstance) {
+			die ("keine Verbindung zum mysql-server möglich\n");
+		}
+		mysql_select_db($config['database'], $this->dbInstance);
+		$this->myQuery("SET NAMES utf8", $this->dbInstance);
+	}
+	
+	/**
+	 * excute a single sql and thro exceptions on error
+	 * @param string $sSql sql to execute
+	 */
+	private function myQuery($sSql){
+		mysql_query($sSql, $this->dbInstance);
+		if (mysql_errno($this->dbInstance)) {
+			throw new \Exception('MySQL error '.mysql_errno($this->dbInstance).': '.mysql_error($this->dbInstance)."\nWhen executing:".$sSql);
+		}
+	}
+	
+	/**
+	 * writes a message to logfile
+	 * @param string $msg message to be written
+	 */
+	private function fileLog($msg) {
+		if(is_array($msg)){
+			foreach ($msg as $entry) {
+				fputs($this->logfile, $entry."\n");
+				echo $entry.'<br />';
+			}
+		} else {
+			fputs($this->logfile, date('H:i:s').': '.$msg."\n");
+			echo date('H:i:s').': '.$msg.'<br />';
+		}
+	}
+}
+
+?>

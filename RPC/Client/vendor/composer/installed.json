@@ -1,0 +1,85 @@
+[
+    {
+        "name": "fightbulc/php_curl",
+        "version": "1.0.0",
+        "version_normalized": "1.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/fightbulc/php_curl",
+            "reference": "1.0.0"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://github.com/fightbulc/php_curl/zipball/1.0.0",
+            "reference": "1.0.0",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.3"
+        },
+        "time": "2012-10-21 14:35:19",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "CURL": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "GPL-3.0"
+        ],
+        "authors": [
+            {
+                "name": "BauerUK",
+                "homepage": "https://github.com/BauerUK"
+            }
+        ],
+        "description": "PHP CURL as object-oriented implementation.",
+        "homepage": "https://github.com/fightbulc/php_curl"
+    },
+    {
+        "name": "fightbulc/jsonrpc_curl",
+        "version": "0.5.4",
+        "version_normalized": "0.5.4.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/fightbulc/jsonrpc_curl.git",
+            "reference": "0.5.4"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/fightbulc/jsonrpc_curl/zipball/0.5.4",
+            "reference": "0.5.4",
+            "shasum": ""
+        },
+        "require": {
+            "fightbulc/php_curl": "1.0.0",
+            "php": ">=5.3.3"
+        },
+        "time": "2013-05-14 11:31:02",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "src/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Tino Ehrich",
+                "email": "opensource@efides.com",
+                "role": "developer"
+            }
+        ],
+        "description": "JSON-RPC CURL",
+        "homepage": "https://github.com/fightbulc/jsonrpc_curl",
+        "keywords": [
+            "json-rpc client"
+        ]
+    }
+]

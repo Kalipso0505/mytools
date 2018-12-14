@@ -1,0 +1,38 @@
+10:48:34: *** Created Class ***
+10:48:35: downloaded file
+10:48:35: finished download file GeoIPCountryCSV.zip
+10:48:35: successfully unziped csv-data
+10:48:35: -> found  at position 0 in zipfile
+10:48:35: found  lines in csv
+10:48:35: start inserting data into database
+10:48:35: end inserting data into database
+10:48:35: end of import
+10:48:53: *** Created Class ***
+10:48:54: downloaded file
+10:48:54: end of import
+10:49:17: *** Created Class ***
+10:49:19: downloaded file
+10:49:19: end of import
+10:49:37: *** Created Class ***
+10:49:38: downloaded file
+10:49:38: end of import
+10:50:41: *** Created Class ***
+10:50:42: downloaded file
+10:50:43: finished download file GeoIPCountryCSV.zip
+10:50:43: successfully unziped csv-data
+10:50:43: -> found GeoIPCountryWhois.csv at position 0 in zipfile
+10:50:45: found 152535 lines in csv
+10:50:45: start inserting data into database
+10:50:58: end inserting data into database
+10:50:58: end of import
+10:51:52: *** Created Class ***
+10:51:53: downloaded file
+10:51:54: finished download file GeoIPCountryCSV.zip
+10:51:54: successfully unziped csv-data
+10:51:54: -> found GeoIPCountryWhois.csv at position 0 in zipfile
+10:51:55: found 152535 lines in csv
+10:51:55: start inserting data into database
+10:52:03: end inserting data into database
+10:52:03: end of import
+10:53:26: *** Created Class ***
+10:53:27: end of import

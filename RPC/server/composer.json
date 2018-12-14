@@ -1,0 +1,12 @@
+{
+    "require": {
+        "simplon/jr": "0.5.2"
+    },
+
+    "autoload": {
+        "psr-0": {
+            "Application": ""
+        }
+    }
+
+}
